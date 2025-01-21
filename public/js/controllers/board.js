@@ -105,4 +105,10 @@ angular.module('myApp.controllers').
         modalInstance.close();
       }
     });
+
+    socket.on('score:adjust', function (data) {
+      console.log('score:adjust');
+      $scope.game = data;
+      $scope.scoreHtml = buildScores();
+    });
   });

@@ -13,7 +13,10 @@ nav.navbar.navbar-default.navbar-fixed-top
               .input-group-addon(ng-show='game.control_player == "player_#{i}"')
                 span.glyphicon.glyphicon-map-marker
               input.form-control(type='text', placeholder='Player #{i}', ng-model='game.player_#{i}.name')
-              .input-group-addon {{game.player_#{i}.score || 0 | currency:'$':0}}
+              .input-group-addon
+                {{game.player_#{i}.score || 0 | currency:'$':0}}
+                button.btn.btn-xs.btn-default(type='button', ng-click='adjustScore(#{i})', style='margin-left: 5px;')
+                  span.glyphicon.glyphicon-pencil
       ul.nav.navbar-nav.navbar-right
         li
           button.btn.btn-primary.navbar-btn(type='button', ng-click='startGame()', ng-show='!game.round') Start Game

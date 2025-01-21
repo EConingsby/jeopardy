@@ -98,5 +98,41 @@ angular.module('myApp.controllers').
         control_player: 'player_1'
       };
     };
+
+    $scope.adjustScore = function(playerNum) {
+      var modalInstance = $modal.open({
+        templateUrl: 'partials/adjustscore',
+        controller: 'AdjustScoreCtrl',
+        size: 'sm',
+        resolve: {
+          player: function() {
+            return {
+              number: playerNum,
+              name: $scope.game['player_' + playerNum].name,
+              currentScore: $scope.game['player_' + playerNum].score || 0
+            };
+          }
+        }
+      });
+
+      modalInstance.result.then(function(result) {
+        var playerKey = 'player_' + playerNum;
+        var oldScore = $scope.game[playerKey].score || 0;
+        $scope.game[playerKey].score = result.newScore;
+        
+        // Add score correction to game history
+        $scope.game.corrections = $scope.game.corrections || [];
+        $scope.game.corrections.push({
+          timestamp: new Date().toISOString(),
+          player: playerKey,
+          oldScore: oldScore,
+          newScore: result.newScore,
+          adjustment: result.newScore - oldScore
+        });
+        
+        socket.emit('score:adjust', $scope.game);
+      });
+    };
+
     $scope.resetGame();
   });

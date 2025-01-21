@@ -69,5 +69,10 @@ module.exports = function (io) {
       datas[id].game = data;
       socket.broadcast.emit('clue:end', data);
     });
+
+    socket.on('score:adjust', function (data) {
+      console.log('score:adjust');
+      socket.broadcast.emit('score:adjust', data);
+    });
   };
 };

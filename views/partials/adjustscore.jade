@@ -1,0 +1,12 @@
+.modal-header
+  h3.modal-title Adjust Score for {{player.name}}
+.modal-body
+  .form-group
+    label Current Score: {{player.currentScore | currency:'$':0}}
+    .input-group
+      .input-group-addon $
+      input.form-control(type='number', ng-model='adjustment', placeholder='Enter adjustment amount')
+    p.help-block Enter a positive or negative amount to adjust the score
+.modal-footer
+  button.btn.btn-default(type='button', ng-click='cancel()') Cancel
+  button.btn.btn-primary(type='button', ng-click='ok()') Update Score 
