@@ -74,9 +74,17 @@ angular.module('myApp.controllers').
         openedClass: 'board-modal-open',
         resolve: {
           response: function () {
+            var split = id ? id.split('_').slice(0, 3) : [];
+            split[0] = 'category';
+
+            if (split.length === 2) {
+              split.push(1);
+            }
+
             return {
               id: id,
               clue: $scope.data[id],
+              category: id ? $scope.data[split.join('_')] : null,
               game: $scope.game,
               scoreHtml: buildScores()
             };

@@ -6,6 +6,9 @@ angular.module('myApp.controllers').
     $scope.show =
       !response.id ? 'scores' :
       response.clue.daily_double ? 'daily' : 'clue';
+    
+    // Add category name from response
+    $scope.category = response.category;
 
     socket.on('clue:daily', function (data) {
       console.log('clue:daily ' + data);

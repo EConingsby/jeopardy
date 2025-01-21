@@ -81,6 +81,13 @@
   padding-right: 50px;
 }
 
+.board-modal-open .modal-body h3 {
+  font-size: 80%;
+  margin-bottom: 30px;
+  font-family: 'Fjalla One', sans-serif;
+  color: #efaa50;
+}
+
 .board-modal-open .carousel img {
   min-height: 700px;
   max-height: 700px;
