@@ -131,3 +131,47 @@
 .panel {
   margin-bottom: 5px;
 }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  min-height: 50px;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-left: 15px;
+}
+
+.player-form {
+  flex: 0 1 auto;
+  margin: 0 10px;
+  white-space: nowrap;
+}
+
+.player-name {
+  max-width: 120px;
+  text-overflow: ellipsis;
+}
+
+.score-display {
+  white-space: nowrap;
+}
+
+.round-controls {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-addon {
+  flex: 0 0 auto;
+}
