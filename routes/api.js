@@ -43,7 +43,9 @@ function exportRound ($, context, r) {
       category_name: $('.category_name', data).text(),
       category_comments: $('.category_comments', data).text(),
       media: $('a', data).length ? $('a', data).map(function (i, element) {
-        return $(this).attr('href').replace('http://www.j-archive.com/', 'http://localhost:3000/');
+        let href = $(this).attr('href');
+        console.log('Category media found:', href); // Debug log
+        return href.replace('http://www.j-archive.com/', 'http://localhost:3000/');
       }).toArray() : undefined
     };
   });
@@ -60,6 +62,17 @@ function exportRound ($, context, r) {
     var link = $('.clue_order_number a', header).attr('href');
     var daily_double = header.find('.clue_value_daily_double').length;
 
+    // Look for audio files specifically
+    var mediaElements = $('a', data);
+    var media = undefined;
+    if (mediaElements.length) {
+      media = mediaElements.map(function (i, element) {
+        let href = $(this).attr('href');
+        console.log('Clue media found:', href); // Debug log
+        return href; // Keep original URL
+      }).toArray();
+    }
+
     result[data.attr('id')] = {
       id: link ? link.substring(link.indexOf('=') + 1, link.length) : undefined,
       daily_double: daily_double ? true : undefined,
@@ -67,9 +80,7 @@ function exportRound ($, context, r) {
       clue_html: data.html(),
       clue_text: data.text(),
       correct_response: $('.correct_response', answer).text(),
-      media: $('a', data).length ? $('a', data).map(function (i, element) {
-        return $(this).attr('href').replace('http://www.j-archive.com/', 'http://localhost:3000/');
-      }).toArray() : undefined
+      media: media
     };
   });
 

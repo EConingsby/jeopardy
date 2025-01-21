@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp.controllers').
-  controller('GameClueCtrl', function ($scope, $modalInstance, response, socket) {
+  controller('GameClueCtrl', function ($scope, $modalInstance, response, socket, $sce) {
     $scope.category = response.category;
     $scope.clue = response.clue;
     $scope.game = response.game;
@@ -11,6 +11,29 @@ angular.module('myApp.controllers').
       player_3: {},
       dd_player: response.game.control_player
     };
+
+    // Add function to check if media is an audio file
+    $scope.isAudioFile = function(url) {
+      if (!url) return false;
+      
+      // Handle trusted resource URL
+      if (url.$$unwrapTrustedValue) {
+        url = url.$$unwrapTrustedValue();
+      }
+      
+      if (typeof url !== 'string') return false;
+      
+      return url.toLowerCase().endsWith('.mp3') || 
+             url.toLowerCase().endsWith('.wav') || 
+             url.toLowerCase().endsWith('.ogg');
+    };
+
+    // Trust audio URLs
+    if ($scope.clue && $scope.clue.media) {
+      $scope.clue.media = $scope.clue.media.map(function(url) {
+        return url ? $sce.trustAsResourceUrl(url) : null;
+      }).filter(Boolean);
+    }
 
     var value = response.id.split('_');
     $scope.result.value = $scope.result.dd_value = parseInt(value[3]) * (value[1] === 'J' ? 200 : 400);

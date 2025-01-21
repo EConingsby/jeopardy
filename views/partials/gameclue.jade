@@ -4,6 +4,10 @@
       .label.label-warning.pull-right(ng-show='clue.daily_double') DD
       .label.label-danger.pull-right(ng-show='clue.triple_stumper') TS
 .modal-body
+  audio.center-block(ng-if="clue.media && isAudioFile(clue.media[0])" controls)
+    source(ng-src="{{clue.media[0]}}")
+    | Your browser does not support the audio element.
+
   h1.text-center(ng-hide="clue.daily_double && !result.dd_confirm" ng-bind-html='clue.clue_html')
   h2.text-center(ng-hide="clue.daily_double && !result.dd_confirm")
     em {{ clue.correct_response }}

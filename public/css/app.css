@@ -175,3 +175,9 @@
 .input-group-addon {
   flex: 0 0 auto;
 }
+
+.modal-body audio {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 500px;
+}
