@@ -23,8 +23,10 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">0 R</span></div>' +
-              '<div><span class="incorrect">0 W</span></div>' +
+              '<div><span class="correct">' + 
+                (($scope.game.player_1 && $scope.game.player_1.correct) || 0) + ' R</span></div>' +
+              '<div><span class="incorrect">' + 
+                (($scope.game.player_1 && $scope.game.player_1.incorrect) || 0) + ' W</span></div>' +
             '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
@@ -35,8 +37,10 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">0 R</span></div>' +
-              '<div><span class="incorrect">0 W</span></div>' +
+              '<div><span class="correct">' + 
+                (($scope.game.player_2 && $scope.game.player_2.correct) || 0) + ' R</span></div>' +
+              '<div><span class="incorrect">' + 
+                (($scope.game.player_2 && $scope.game.player_2.incorrect) || 0) + ' W</span></div>' +
             '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
@@ -47,8 +51,10 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">0 R</span></div>' +
-              '<div><span class="incorrect">0 W</span></div>' +
+              '<div><span class="correct">' + 
+                (($scope.game.player_3 && $scope.game.player_3.correct) || 0) + ' R</span></div>' +
+              '<div><span class="incorrect">' + 
+                (($scope.game.player_3 && $scope.game.player_3.incorrect) || 0) + ' W</span></div>' +
             '</div>' : '') +
           '</div>' +
         '</div>';

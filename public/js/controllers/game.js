@@ -67,15 +67,19 @@ angular.module('myApp.controllers').
           var key = 'player_' + num
           $scope.game[key] = $scope.game[key] || {};
           $scope.game[key].score = $scope.game[key].score || 0;
+          $scope.game[key].correct = $scope.game[key].correct || 0;
+          $scope.game[key].incorrect = $scope.game[key].incorrect || 0;
 
           var value = id === 'clue_FJ' ? parseInt($scope.game[key].fj_wager) : result.value;
 
           if (result[key] && result[key].right) {
             $scope.game[key].score += value;
+            $scope.game[key].correct += 1;
             $scope.game.control_player = key;
           }
           else if (result[key] && result[key].wrong) {
             $scope.game[key].score -= value;
+            $scope.game[key].incorrect += 1;
           }
         });
 
@@ -97,6 +101,14 @@ angular.module('myApp.controllers').
       $scope.game = {
         control_player: 'player_1'
       };
+      [1, 2, 3].forEach(function(num) {
+        var key = 'player_' + num;
+        $scope.game[key] = {
+          score: 0,
+          correct: 0,
+          incorrect: 0
+        };
+      });
     };
 
     $scope.adjustScore = function(playerNum) {
