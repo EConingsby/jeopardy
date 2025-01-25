@@ -13,7 +13,7 @@ angular.module('myApp.controllers').
       }
     })
 
-    function buildScores () {
+    function buildScores(isFinal) {
       return '<div class="row">' +
           '<div class="col-md-4 text-center">' +
             '<div class="player-name">' +
@@ -21,6 +21,11 @@ angular.module('myApp.controllers').
             '</div><div class="player-score">' +
               currencyFilter(($scope.game.player_1 && $scope.game.player_1.score) || 0, '$', 0) +
             '</div>' +
+            (isFinal ? '<div class="player-stats">' +
+              '<br>' +
+              '<div><span class="correct">0 R</span></div>' +
+              '<div><span class="incorrect">0 W</span></div>' +
+            '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
             '<div class="player-name">' +
@@ -28,6 +33,11 @@ angular.module('myApp.controllers').
             '</div><div class="player-score">' +
               currencyFilter(($scope.game.player_2 && $scope.game.player_2.score) || 0, '$', 0) +
             '</div>' +
+            (isFinal ? '<div class="player-stats">' +
+              '<br>' +
+              '<div><span class="correct">0 R</span></div>' +
+              '<div><span class="incorrect">0 W</span></div>' +
+            '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
             '<div class="player-name">' +
@@ -35,6 +45,11 @@ angular.module('myApp.controllers').
             '</div><div class="player-score">' +
               currencyFilter(($scope.game.player_3 && $scope.game.player_3.score) || 0, '$', 0) +
             '</div>' +
+            (isFinal ? '<div class="player-stats">' +
+              '<br>' +
+              '<div><span class="correct">0 R</span></div>' +
+              '<div><span class="incorrect">0 W</span></div>' +
+            '</div>' : '') +
           '</div>' +
         '</div>';
     }
@@ -56,7 +71,7 @@ angular.module('myApp.controllers').
         $scope.scoreHtml = buildScores();
       }
       else if (data.game.round === 'end') {
-        openModal();
+        openFinalModal();
       }
     });
 
@@ -92,6 +107,32 @@ angular.module('myApp.controllers').
         }
       });
     };
+
+    function openFinalModal() {
+      if (modalInstance) {
+        modalInstance.close();
+      }
+
+      modalInstance = $modal.open({
+        templateUrl: 'partials/boardclue',
+        controller: 'BoardClueCtrl',
+        backdrop: 'static',
+        size: 'lg',
+        openedClass: 'board-modal-open',
+        resolve: {
+          response: function () {
+            return {
+              id: null,
+              clue: null,
+              category: null,
+              game: $scope.game,
+              scoreHtml: buildScores(true),
+              isFinal: true
+            };
+          }
+        }
+      });
+    }
 
     socket.on('clue:start', function (data) {
       console.log('clue:start ' + data);

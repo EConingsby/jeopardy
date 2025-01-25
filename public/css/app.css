@@ -156,6 +156,8 @@
 .player-name {
   max-width: 120px;
   text-overflow: ellipsis;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .score-display {
@@ -180,4 +182,18 @@
   margin: 20px auto;
   width: 80%;
   max-width: 500px;
+}
+
+.player-stats {
+  font-size: 0.75em;
+  margin-top: 5px;
+  font-family: Arial, sans-serif;
+}
+
+.player-stats .correct {
+  color: #006400;
+}
+
+.player-stats .incorrect {
+  color: #8B0000;
 }
