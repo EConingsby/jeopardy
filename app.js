@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -17,6 +16,8 @@ var errorHandler = require('errorhandler');
 var app = module.exports = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
+
+const leaderboard = require('./routes/leaderboard');
 
 /**
  * Configuration
@@ -67,6 +68,19 @@ io.sockets.on('connection', require('./routes/socket')(io));
 /**
  * Start Server
  */
+
+// Handle graceful shutdown and save leaderboard
+process.on('SIGINT', () => {
+  console.log('\nSaving leaderboard and shutting down...');
+  leaderboard.processNewGames();
+  process.exit();
+});
+
+process.on('SIGTERM', () => {
+  console.log('\nSaving leaderboard and shutting down...');
+  leaderboard.processNewGames();
+  process.exit(); 
+});
 
 server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
