@@ -5,6 +5,8 @@
 var _ = require('lodash');
 var jsonfile = require('jsonfile');
 var id, datas = {};
+const path = require('path');
+const LEADERBOARD_FILE = path.join(__dirname, '../leaderboard.json');
 
 module.exports = function (io) {
   return function (socket) {
@@ -78,6 +80,39 @@ module.exports = function (io) {
     socket.on('coryat:show', function (data) {
       console.log('coryat:show');
       socket.broadcast.emit('coryat:show', data);
+    });
+
+    socket.on('leaderboard:show', function () {
+      console.log('leaderboard:show');
+      try {
+        const leaderboard = jsonfile.readFileSync(LEADERBOARD_FILE);
+        
+        // Transform and sort players by totalWinnings
+        const topEarnings = Object.entries(leaderboard.players || {})
+          .map(([playerName, stats]) => ({
+            playerName,
+            totalWinnings: stats.totalWinnings || 0
+          }))
+          .sort((a, b) => b.totalWinnings - a.totalWinnings)
+          .slice(0, 10);
+
+        const topWins = Object.entries(leaderboard.players || {})
+          .map(([playerName, stats]) => ({
+            playerName,
+            gamesWon: stats.gamesWon || 0
+          }))
+          .sort((a, b) => b.gamesWon - a.gamesWon)
+          .slice(0, 10);
+
+        socket.broadcast.emit('leaderboard:show', {
+          topEarnings,
+          topWins,
+          topScores: leaderboard.topScores || [],
+          topStreaks: leaderboard.topStreaks || []
+        });
+      } catch (error) {
+        console.error('Error showing leaderboard:', error);
+      }
     });
   };
 };

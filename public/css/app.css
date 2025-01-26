@@ -211,3 +211,43 @@
 .board-modal-open .modal-body .player-stats {
   font-size: 100%;
 }
+
+.leaderboard-modal {
+  background: #0015a0;
+  color: #ffffff;
+  font-family: 'Korinna', 'Kadwa', serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.leaderboard-modal h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #efaa50;
+}
+
+.leaderboard-modal h3 {
+  font-size: 24px;
+  color: #efaa50;
+  margin: 20px 0;
+}
+
+.leaderboard-modal .table {
+  width: 100%;
+  margin-bottom: 30px;
+  background: transparent;
+}
+
+.leaderboard-modal .table th {
+  color: #ffffff;
+  text-align: center;
+  border: none;
+  font-size: 18px;
+}
+
+.leaderboard-modal .table td {
+  color: #ffffff;
+  text-align: center;
+  border: none;
+  font-size: 16px;
+}

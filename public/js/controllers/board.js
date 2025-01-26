@@ -192,4 +192,23 @@ angular.module('myApp.controllers').
         }
       });
     });
+
+    socket.on('leaderboard:show', function (data) {
+      console.log('leaderboard:show');
+      if (modalInstance) {
+        modalInstance.close();
+      }
+
+      modalInstance = $modal.open({
+        templateUrl: 'partials/boardleaderboard',
+        controller: 'BoardLeaderboardCtrl',
+        backdrop: 'static',
+        size: 'lg',
+        resolve: {
+          response: function () {
+            return data;
+          }
+        }
+      });
+    });
   });

@@ -167,5 +167,10 @@ angular.module('myApp.controllers').
       socket.emit('coryat:show', $scope.game);
     };
 
+    $scope.showLeaderboard = function() {
+      console.log('leaderboard:show emit');
+      socket.emit('leaderboard:show', $scope.game);
+    };
+
     $scope.resetGame();
   });
