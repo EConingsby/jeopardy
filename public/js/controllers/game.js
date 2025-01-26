@@ -71,11 +71,14 @@ angular.module('myApp.controllers').
           $scope.game[key].incorrect = $scope.game[key].incorrect || 0;
           $scope.game[key].dd_correct = $scope.game[key].dd_correct || 0;
           $scope.game[key].dd_incorrect = $scope.game[key].dd_incorrect || 0;
+          $scope.game[key].coryat = $scope.game[key].coryat || 0;
 
           var value = id === 'clue_FJ' ? parseInt($scope.game[key].fj_wager) : result.value;
+          var coryatValue = id === 'clue_FJ' ? 0 : (result.isDD ? result.originalValue : result.value);
 
           if (result[key] && result[key].right) {
             $scope.game[key].score += value;
+            $scope.game[key].coryat += coryatValue;
             if (!id.startsWith('clue_FJ')) {  // Don't count FJ in stats
               if (result.isDD) {
                 $scope.game[key].dd_correct += 1;
@@ -86,15 +89,15 @@ angular.module('myApp.controllers').
           }
           else if (result[key] && result[key].wrong) {
             $scope.game[key].score -= value;
+            $scope.game[key].coryat -= coryatValue;
             if (!id.startsWith('clue_FJ')) {  // Don't count FJ in stats
               if (result.isDD) {
                 $scope.game[key].dd_incorrect += 1;
-              }
+              } 
               $scope.game[key].incorrect += 1;
             }
           }
         });
-
         console.log('clue:end emit');
         socket.emit('clue:end', $scope.game);
       });
@@ -118,7 +121,8 @@ angular.module('myApp.controllers').
         $scope.game[key] = {
           score: 0,
           correct: 0,
-          incorrect: 0
+          incorrect: 0,
+          coryat: 0,
         };
       });
     };

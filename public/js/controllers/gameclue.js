@@ -36,7 +36,9 @@ angular.module('myApp.controllers').
     }
 
     var value = response.id.split('_');
-    $scope.result.value = $scope.result.dd_value = parseInt(value[3]) * (value[1] === 'J' ? 200 : 400);
+    var originalValue = parseInt(value[3]) * (value[1] === 'J' ? 200 : 400);
+    $scope.result.value = $scope.result.dd_value = originalValue;
+    $scope.result.originalValue = originalValue;
 
     $scope.setResult = function (num, correct) {
       var key = 'player_' + num;
