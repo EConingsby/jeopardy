@@ -1,0 +1,7 @@
+.modal-body
+  h1.text-center Coryat Scores
+  .row
+    each i in [1, 2, 3]
+      .col-md-4.text-center
+        .player-name {{ game['player_' + #{i}].name || 'Player #{i}' }}
+        .player-score {{ game['player_' + #{i}].coryat | currency:'$':0 }}

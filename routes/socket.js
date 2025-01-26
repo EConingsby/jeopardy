@@ -74,5 +74,10 @@ module.exports = function (io) {
       console.log('score:adjust');
       socket.broadcast.emit('score:adjust', data);
     });
+
+    socket.on('coryat:show', function (data) {
+      console.log('coryat:show');
+      socket.broadcast.emit('coryat:show', data);
+    });
   };
 };

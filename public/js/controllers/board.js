@@ -169,4 +169,26 @@ angular.module('myApp.controllers').
       $scope.game = data;
       $scope.scoreHtml = buildScores();
     });
+
+    socket.on('coryat:show', function (data) {
+      console.log('coryat:show');
+      if (modalInstance) {
+        modalInstance.close();
+      }
+
+      modalInstance = $modal.open({
+        templateUrl: 'partials/boardcoryat',
+        controller: 'BoardCoryatCtrl',
+        backdrop: 'static',
+        size: 'lg',
+        openedClass: 'board-modal-open',
+        resolve: {
+          response: function () {
+            return {
+              game: data
+            };
+          }
+        }
+      });
+    });
   });

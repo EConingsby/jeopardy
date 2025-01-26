@@ -162,5 +162,10 @@ angular.module('myApp.controllers').
       });
     };
 
+    $scope.showCoryat = function() {
+      console.log('coryat:show emit');
+      socket.emit('coryat:show', $scope.game);
+    };
+
     $scope.resetGame();
   });

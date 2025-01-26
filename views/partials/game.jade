@@ -99,6 +99,10 @@ nav.navbar.navbar-default.navbar-fixed-top
 
   div(ng-show='game.round == "end"')
     h1.text-center Game over!
+    .text-center
+      button.btn.btn-info.btn-lg(type='button', ng-click='showCoryat()') Show Coryat Scores
+      br
+      br
     p.text-center
       a(target='_blank', ng-href='http://www.j-archive.com/showgame.php?game_id={{data.id}}') Show game @ J! Archive
     p.text-center
