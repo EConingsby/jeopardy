@@ -69,17 +69,29 @@ angular.module('myApp.controllers').
           $scope.game[key].score = $scope.game[key].score || 0;
           $scope.game[key].correct = $scope.game[key].correct || 0;
           $scope.game[key].incorrect = $scope.game[key].incorrect || 0;
+          $scope.game[key].dd_correct = $scope.game[key].dd_correct || 0;
+          $scope.game[key].dd_incorrect = $scope.game[key].dd_incorrect || 0;
 
           var value = id === 'clue_FJ' ? parseInt($scope.game[key].fj_wager) : result.value;
 
           if (result[key] && result[key].right) {
             $scope.game[key].score += value;
-            $scope.game[key].correct += 1;
+            if (!id.startsWith('clue_FJ')) {  // Don't count FJ in stats
+              if (result.isDD) {
+                $scope.game[key].dd_correct += 1;
+              }
+              $scope.game[key].correct += 1;
+            }
             $scope.game.control_player = key;
           }
           else if (result[key] && result[key].wrong) {
             $scope.game[key].score -= value;
-            $scope.game[key].incorrect += 1;
+            if (!id.startsWith('clue_FJ')) {  // Don't count FJ in stats
+              if (result.isDD) {
+                $scope.game[key].dd_incorrect += 1;
+              }
+              $scope.game[key].incorrect += 1;
+            }
           }
         });
 

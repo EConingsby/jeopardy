@@ -76,6 +76,7 @@ angular.module('myApp.controllers').
       if ($scope.clue.daily_double) {
         $scope.result[$scope.result.dd_player] = $scope.result[$scope.result.dd_player] || {};
         $scope.result[$scope.result.dd_player][$scope.result.dd_result ? 'right' : 'wrong'] = true;
+        $scope.result.isDD = true;
       }
       result[response.id] = $scope.result;
       $modalInstance.close(result);

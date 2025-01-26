@@ -13,6 +13,26 @@ angular.module('myApp.controllers').
       }
     })
 
+    function formatStats(player) {
+      var ddCorrect = (player && player.dd_correct) || 0;
+      var ddIncorrect = (player && player.dd_incorrect) || 0;
+      var totalCorrect = (player && player.correct) || 0;
+      var totalIncorrect = (player && player.incorrect) || 0;
+
+      var correctText = totalCorrect + ' R';
+      if (ddCorrect > 0) {
+        correctText += ' (' + ddCorrect + ' DD)';
+      }
+
+      var incorrectText = totalIncorrect + ' W';
+      if (ddIncorrect > 0) {
+        incorrectText += ' (' + ddIncorrect + ' DD)';
+      }
+
+      return '<div><span class="correct">' + correctText + '</span></div>' +
+             '<div><span class="incorrect">' + incorrectText + '</span></div>';
+    }
+
     function buildScores(isFinal) {
       return '<div class="row">' +
           '<div class="col-md-4 text-center">' +
@@ -23,10 +43,7 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">' + 
-                (($scope.game.player_1 && $scope.game.player_1.correct) || 0) + ' R</span></div>' +
-              '<div><span class="incorrect">' + 
-                (($scope.game.player_1 && $scope.game.player_1.incorrect) || 0) + ' W</span></div>' +
+              formatStats($scope.game.player_1) +
             '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
@@ -37,10 +54,7 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">' + 
-                (($scope.game.player_2 && $scope.game.player_2.correct) || 0) + ' R</span></div>' +
-              '<div><span class="incorrect">' + 
-                (($scope.game.player_2 && $scope.game.player_2.incorrect) || 0) + ' W</span></div>' +
+              formatStats($scope.game.player_2) +
             '</div>' : '') +
           '</div>' +
           '<div class="col-md-4 text-center">' +
@@ -51,10 +65,7 @@ angular.module('myApp.controllers').
             '</div>' +
             (isFinal ? '<div class="player-stats">' +
               '<br>' +
-              '<div><span class="correct">' + 
-                (($scope.game.player_3 && $scope.game.player_3.correct) || 0) + ' R</span></div>' +
-              '<div><span class="incorrect">' + 
-                (($scope.game.player_3 && $scope.game.player_3.incorrect) || 0) + ' W</span></div>' +
+              formatStats($scope.game.player_3) +
             '</div>' : '') +
           '</div>' +
         '</div>';
