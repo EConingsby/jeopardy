@@ -7,4 +7,5 @@
         .player-score {{ game['player_' + #{i}].coryat | currency:'$':0 }}
   .row.mt-4
     .col-md-12.text-center
-      h3 Combined Coryat: {{ (game.player_1.coryat + game.player_2.coryat + game.player_3.coryat) | currency:'$':0 }}
+      h3 Our Combined Coryat: {{ (game.player_1.coryat + game.player_2.coryat + game.player_3.coryat) | currency:'$':0 }}
+      h4.text-muted(ng-if="data.combined_coryat") Original Combined Coryat: {{ data.combined_coryat | currency:'$':0 }}

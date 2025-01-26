@@ -185,7 +185,8 @@ angular.module('myApp.controllers').
         resolve: {
           response: function () {
             return {
-              game: data
+              game: data,
+              data: $scope.data
             };
           }
         }

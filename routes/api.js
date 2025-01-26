@@ -100,11 +100,24 @@ exports.game = function (req, res, next) {
     if (!error) {
       var $ = cheerio.load(html);
 
+      // Extract combined Coryat from game comments
+      var gameComments = $('#game_comments').text();
+      
+      // Get the Combined Coryat directly from its HTML element
+      var combinedCoryatText = $('h3:contains("Combined Coryat")').text();
+      
+      var combinedCoryatMatch = combinedCoryatText.match(/\$([\d,]+)/);
+      
+      var combinedCoryat = combinedCoryatMatch ? 
+        parseInt(combinedCoryatMatch[1].replace(/,/g, '')) : 
+        undefined;
+
       var result = {
         id: req.params.id,
         game_title: $('#game_title').text(),
-        game_comments: $('#game_comments').text(),
-        game_complete: false
+        game_comments: gameComments,
+        game_complete: false,
+        combined_coryat: combinedCoryat
       };
 
       _.assign(result,
