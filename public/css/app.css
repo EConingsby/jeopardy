@@ -50,7 +50,11 @@
   font-size: 600%;
 }
 
-.jeopardy-board .fj-cell .player-name,
+.jeopardy-board .fj-cell .player-name {
+  font-family: 'Fjalla One', sans-serif;
+  text-transform: uppercase;
+}
+
 .jeopardy-board .fj-cell .player-score {
   font-size: 66.67%;
   text-transform: uppercase;
