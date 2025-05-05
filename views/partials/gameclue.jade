@@ -8,6 +8,17 @@
     source(ng-src="{{clue.media[0]}}")
     | Your browser does not support the audio element.
 
+  div(ng-if="clue.media && !isAudioFile(clue.media[0])")
+    carousel(interval="'5000'")
+      slide(ng-repeat='slide in clue.media')
+        div(ng-if='!isVideoFile(slide)')
+          img(ng-src='{{slide}}')
+        div(ng-if='isVideoFile(slide)')
+          video(ng-if='!slide.includes("youtube")', controls, style='max-width: 100%; max-height: 700px;')
+            source(ng-src='{{slide}}', type='video/mp4')
+            | Your browser does not support the video tag.
+          iframe(ng-if='slide.includes("youtube")', width='100%', height='700', ng-src='{{slide}}', frameborder='0', allowfullscreen)
+
   h1.text-center(ng-hide="clue.daily_double && !result.dd_confirm" ng-bind-html='clue.clue_html')
   h2.text-center(ng-hide="clue.daily_double && !result.dd_confirm")
     em {{ clue.correct_response }}

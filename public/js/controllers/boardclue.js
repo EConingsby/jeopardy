@@ -26,7 +26,25 @@ angular.module('myApp.controllers').
              url.toLowerCase().endsWith('.ogg');
     };
 
-    // Trust audio URLs
+    // Add function to check if media is a video file
+    $scope.isVideoFile = function(url) {
+      if (!url) return false;
+      
+      // Handle trusted resource URL
+      if (url.$$unwrapTrustedValue) {
+        url = url.$$unwrapTrustedValue();
+      }
+      
+      if (typeof url !== 'string') return false;
+      
+      return url.toLowerCase().endsWith('.mp4') || 
+             url.toLowerCase().endsWith('.webm') || 
+             url.toLowerCase().endsWith('.ogg') ||
+             url.toLowerCase().includes('youtube.com') ||
+             url.toLowerCase().includes('youtu.be');
+    };
+
+    // Trust media URLs
     if ($scope.clue && $scope.clue.media) {
       $scope.clue.media = $scope.clue.media.map(function(url) {
         return url ? $sce.trustAsResourceUrl(url) : null;
